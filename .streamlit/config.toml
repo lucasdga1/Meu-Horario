@@ -1,0 +1,7 @@
+[theme]
+base = "dark"
+primaryColor = "#52528C"
+backgroundColor = "#7C9EB2"
+secondaryBackgroundColor = "#52528C"
+textColor = "#FFFFF0"
+font = "Segoe UI"

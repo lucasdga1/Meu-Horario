@@ -119,6 +119,30 @@ def test_calcular_horas_trabalhadas(
 
 
 @pytest.mark.parametrize(
+    ("entrada", "almoco_inicio", "almoco_fim", "saida", "carga_normal", "esperado"),
+    [
+        ("08:00", "12:00", "13:00", "17:00", 6, 8.0),
+        ("08:00", "12:00", "12:15", "17:00", 6, 8.75),
+    ],
+)
+def test_calcular_horas_trabalhadas_respeita_regra_do_almoco_para_carga_6h(
+    entrada,
+    almoco_inicio,
+    almoco_fim,
+    saida,
+    carga_normal,
+    esperado,
+):
+    assert calcular_horas_trabalhadas(
+        entrada,
+        almoco_inicio,
+        almoco_fim,
+        saida,
+        carga_normal=carga_normal,
+    ) == esperado
+
+
+@pytest.mark.parametrize(
     ("entrada", "almoco_inicio", "almoco_fim", "saida"),
     [
         ("08:00", "13:00", "12:00", "17:00"),
@@ -140,6 +164,17 @@ def test_calcular_horas_trabalhadas_rejeita_horarios_invalidos(
             almoco_inicio,
             almoco_fim,
             saida,
+        )
+
+
+def test_calcular_horas_trabalhadas_rejeita_almoco_longo_para_carga_6h():
+    with pytest.raises(ValueError, match="15 minutos"):
+        calcular_horas_trabalhadas(
+            "08:00",
+            "12:00",
+            "13:00",
+            "16:00",
+            carga_normal=6,
         )
 
 

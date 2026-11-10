@@ -49,6 +49,7 @@ def registrar(
             almoco_inicio,
             almoco_fim,
             saida,
+            carga_normal=carga_normal,
         )
 
     novo_registro = pd.DataFrame([{

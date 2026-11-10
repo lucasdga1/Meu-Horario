@@ -41,7 +41,7 @@ def validar_carga_normal(carga_normal):
     return carga_normal
 
 
-def calcular_horas_trabalhadas(entrada, almoco_inicio, almoco_fim, saida):
+def calcular_horas_trabalhadas(entrada, almoco_inicio, almoco_fim, saida, carga_normal=None):
     if not entrada or not saida:
         raise ValueError("Informe os horários de entrada e saída.")
     if bool(almoco_inicio) != bool(almoco_fim):
@@ -73,7 +73,16 @@ def calcular_horas_trabalhadas(entrada, almoco_inicio, almoco_fim, saida):
     segundos = (hora_saida - hora_entrada).total_seconds() - intervalo
     if segundos <= 0:
         raise ValueError("O total de horas trabalhadas deve ser maior que zero.")
-    return round(segundos / 3600, 2)
+
+    horas_trabalhadas = round(segundos / 3600, 2)
+    if carga_normal == 6 and almoco_inicio:
+        limite_almoco = 15 * 60
+        if intervalo > limite_almoco and horas_trabalhadas < 8:
+            raise ValueError(
+                "Para carga de 6 horas, o intervalo de almoço deve ter no máximo 15 minutos, salvo quando a jornada ultrapassar 8 horas trabalhadas."
+            )
+
+    return horas_trabalhadas
 
 
 def normalizar_registros(df, carga_normal=8):
@@ -138,6 +147,7 @@ def normalizar_registros(df, carga_normal=8):
                 registros.at[indice, "almoco_inicio"],
                 registros.at[indice, "almoco_fim"],
                 registros.at[indice, "saida"],
+                carga_normal=registros.at[indice, "carga_normal"],
             )
     if (horas < 0).any():
         raise ValueError("As horas trabalhadas não podem ser negativas.")
