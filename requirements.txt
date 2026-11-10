@@ -1,0 +1,10 @@
+pandas
+numpy
+streamlit
+pathlib
+workalendar
+typing
+datetime
+pytest
+sys 
+hashlib

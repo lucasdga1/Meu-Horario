@@ -76,6 +76,34 @@ def test_normalizar_registros_ordena_dados_e_preenche_campos():
     assert resultado["abono"].tolist() == ["", ""]
 
 
+@pytest.mark.parametrize(
+    ("saida", "carga_normal", "esperado"),
+    [
+        ("15:50", 8, 8.0),
+        ("16:10", 8, 8.0),
+        ("15:49", 8, 7.82),
+        ("16:11", 8, 8.18),
+        ("13:50", 6, 6.0),
+        ("14:10", 6, 6.0),
+    ],
+)
+def test_normalizar_registros_aplica_tolerancia_de_dez_minutos(
+    saida,
+    carga_normal,
+    esperado,
+):
+    df = _dataframe_registros([{
+        "data": "2026-01-01",
+        "entrada": "08:00",
+        "saida": saida,
+        "carga_normal": carga_normal,
+    }])
+
+    resultado = normalizar_registros(df)
+
+    assert resultado.loc[0, "horas_trabalhadas"] == esperado
+
+
 def test_recalcular_saldos_usa_carga_normal_de_cada_registro():
     df = _dataframe_registros([
         {

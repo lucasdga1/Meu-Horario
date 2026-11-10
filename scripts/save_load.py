@@ -151,6 +151,11 @@ def normalizar_registros(df, carga_normal=8):
             )
     if (horas < 0).any():
         raise ValueError("As horas trabalhadas não podem ser negativas.")
+    desvio_carga = (horas - registros["carga_normal"]).abs().round(2)
+    tolerancia_horas = round(10 / 60, 2)
+    horas.loc[desvio_carga <= tolerancia_horas] = registros.loc[
+        desvio_carga <= tolerancia_horas, "carga_normal"
+    ]
     registros["horas_trabalhadas"] = horas.astype(float)
 
     if registros["data"].duplicated().any():
