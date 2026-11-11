@@ -285,7 +285,7 @@ if st.session_state.registros_origem is not None and nome_download:
 
     st.download_button(
         label="**Baixar registro de horas**",
-        data=save_load.recalcular_saldos(st.session_state.registros_df).to_csv(index=False),
+        data=save_load.recalcular_saldos(st.session_state.registros_df).to_csv(index=False, sep=";", encoding="utf-8-sig", ).encode("utf-8-sig"),
         file_name=nome_download,
         mime="text/csv",
     )
