@@ -14,10 +14,8 @@ carregados e baixados em formato CSV.
 
 ## Aplicação
 
-**Acesse o app:** [Meu Horário no Streamlit](INSERIR_LINK_ATUALIZADO_AQUI)
+**Acesse o app:** [Meu Horário no Streamlit](https://meu-horario.streamlit.app/)
 
-> Substitua `INSERIR_LINK_ATUALIZADO_AQUI` pelo endereço público atualizado
-> quando a aplicação estiver publicada.
 
 ## Funcionalidades e regras
 
