@@ -6,4 +6,3 @@ workalendar
 typing
 datetime
 pytest
-hashlib
