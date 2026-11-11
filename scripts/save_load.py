@@ -226,11 +226,11 @@ def registrar_feriados_mes(df, ano, mes, carga_normal=8):
 def load(arquivo: Union[str, Path, IO], carga_normal=8):
     carga_normal = validar_carga_normal(carga_normal)
     if hasattr(arquivo, "read"):
-        dados = pd.read_csv(arquivo, sep=";")
+        dados = pd.read_csv(arquivo)
     else:
         caminho = Path(arquivo)
         if caminho.exists():
-            dados = pd.read_csv(caminho, sep=";")
+            dados = pd.read_csv(caminho)
         else:
             dados = pd.DataFrame(columns=COLUNAS)
     return recalcular_saldos(dados, carga_normal)
