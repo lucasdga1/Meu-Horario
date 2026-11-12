@@ -27,7 +27,7 @@ st.markdown("## ⏱️Informe sua carga horária normal")
 carga_normal = st.number_input("Carga horária",
                                min_value=6,
                                max_value=8,
-                               value=6,
+                               value=8,
                                step=2)
 meses = {
     "Janeiro": 1,
@@ -141,17 +141,17 @@ elif abono == "Não":
     ).strftime("%H:%M")
     almoco_inicio = st.time_input(
         "Horário de início do almoço",
-        value=time(8, 0),
+        value=time(12, 0),
         step = 300
     ).strftime("%H:%M")
     almoco_fim = st.time_input(
         "Horário fim do almoço",
-        value=time(8, 0),
+        value=time(13, 0),
         step = 300
     ).strftime("%H:%M")
     saida = st.time_input(
         "Horário de saída",
-        value=time(8, 0),
+        value=time(17, 0),
         step = 300
     ).strftime("%H:%M")
     
