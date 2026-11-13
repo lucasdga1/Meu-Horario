@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import IO, Union
 
 import pandas as pd
-from workalendar.america import Brazil, BrazilDistritoFederal
+from workalendar.america import Brazil
 
 
 COLUNAS = [
@@ -185,10 +185,9 @@ def feriados_mes(ano, mes):
         raise ValueError("O mês deve estar entre 1 e 12.")
 
     nomes_por_data = {}
-    for calendario in (Brazil(), BrazilDistritoFederal()):
-        for data_feriado, nome in calendario.holidays(ano):
-            if data_feriado.month == mes:
-                nomes_por_data.setdefault(data_feriado, set()).add(nome)
+    for data_feriado, nome in Brazil().holidays(ano):
+        if data_feriado.month == mes:
+            nomes_por_data.setdefault(data_feriado, set()).add(nome)
 
     return [
         (data_feriado, ", ".join(sorted(nomes)))
